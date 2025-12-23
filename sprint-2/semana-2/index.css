@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.btn {
+    width: 120px;
+    height: 40px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-lg {
+    width: 200px;
+    height: 60px;
+    font-size: 18px;
+}
+
+.btn-primary {
+    background-color: #012954;
+}
+
+.btn-warning {
+    background-color: #FFA500;
+}
+
+
+.btn__text {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.btn__text-small {
+    font-size: 12px;
+}
+
+.d-flex {
+    display: flex;
+}
