@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: brown;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    background-color: rgb(187, 187, 207);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#box {
+     background-color: rgb(214, 175, 76);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
