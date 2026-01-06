@@ -1,0 +1,33 @@
+:root {
+    /* Paleta de Cores */
+    --cor-primaria: #4333ff;
+    --cor-secundaria: #1a1a1a;
+    --cor-text-claro: #666666;
+    --cor-fundo: #f8f9fa;
+    --cor-branco: #ffffff;
+    --cor-bege: #e8eaff;
+
+    /* Espaçamentos */
+    --espacamento-xs: 0.5rem;
+    --espacamento-sm: 1rem;
+    --espacamento-md: 2rem;
+    --espacamento-lg: 3rem;
+    --espacamento-xl: 4rem;
+
+    /* Tipografia */
+    --fonte-xs: 0.75rem;
+    --fonte-sm: 1rem;
+    --fonte-md: 1.25rem;
+    --fonte-lg: 1.5rem;
+    --fonte-xl: 3.5rem;
+
+    /* Bordas */
+    --border-md: 8px;
+    --transicao: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
