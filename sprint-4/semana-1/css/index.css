@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+}
+
+
+h1::before {
+    content: "🏃‍♂️ ";
+    color: #ff8f60;
+    font-size: 50px;
+}
