@@ -1,0 +1,63 @@
+:root {
+    --gray-50: #eaeaea;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px; /* 1rem = 10px */
+}
+
+body {
+    font-family: "Inter", sans-serif; 
+    background-color: var(--gray-50);
+}
+
+.container {
+    max-width: 1200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.container > div {
+    background-color: blueviolet;
+    border: 1px solid #000;
+    width: 400px;
+    height: 400px;
+}
+
+@media (max-width: 544px) {
+    .container {
+        margin: 1.5rem 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1 {
+        margin: 1.5rem 1.5rem; /* x-axis, y-axis */
+    }
+}
+
+/* media query */
+@media (min-width: 0px) and (max-width: 480px) {
+    /* adaptações pra um telefone bem pequeno */
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    /* adaptações pra um tablet */
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* adaptações pra um tablet grande ou um laptop pequeno */
+}
+
+@media (min-width: 1025px) and (max-width: 1200px) {
+    /* adaptações pra laptops e desktops médios */
+}
