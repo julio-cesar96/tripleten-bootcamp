@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercício 2 – Carrinho de Compras</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+
+  <div class="badge"><div class="dot"></div> Sprint 8 · Semana 1 · Nível Médio</div>
+  <h1>Exercício 2 – <span>Carrinho de Compras</span></h1>
+  <p class="subtitle">
+    Pratique arrays de objetos, <code style="color:var(--blue)">map</code>, <code style="color:var(--blue)">filter</code>, <code style="color:var(--blue)">reduce</code> e arrow functions construindo a lógica de um mini carrinho.
+  </p>
+
+  <div class="card">
+    <h2><div class="num">1</div> Enunciado</h2>
+    <p style="font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:.75rem">
+      Você tem um array de produtos (objetos). Implemente as seguintes funções:
+    </p>
+    <ul>
+      <li><code style="color:var(--fn);font-family:var(--mono)">calcularTotal(itens)</code> — soma o preço × quantidade de cada item</li>
+      <li><code style="color:var(--fn);font-family:var(--mono)">aplicarDesconto(itens, pct)</code> — retorna o total com % de desconto</li>
+      <li><code style="color:var(--fn);font-family:var(--mono)">removerItem(itens, id)</code> — retorna novo array sem o item pelo id</li>
+      <li><code style="color:var(--fn);font-family:var(--mono)">itensCaros(itens, limite)</code> — retorna só itens acima do limite de preço</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><div class="num">2</div> Estrutura dos dados</h2>
+    <pre>
+<span class="keyword">const</span> produtos = [
+  { <span class="prop">id</span>: <span class="num-lit">1</span>, <span class="prop">nome</span>: <span class="str">'Teclado Mecânico'</span>, <span class="prop">preco</span>: <span class="num-lit">350</span>, <span class="prop">qtd</span>: <span class="num-lit">1</span> },
+  { <span class="prop">id</span>: <span class="num-lit">2</span>, <span class="prop">nome</span>: <span class="str">'Mouse Gamer'</span>,       <span class="prop">preco</span>: <span class="num-lit">180</span>, <span class="prop">qtd</span>: <span class="num-lit">1</span> },
+  { <span class="prop">id</span>: <span class="num-lit">3</span>, <span class="prop">nome</span>: <span class="str">'Monitor 24"'</span>,       <span class="prop">preco</span>: <span class="num-lit">1200</span>, <span class="prop">qtd</span>: <span class="num-lit">1</span> },
+  { <span class="prop">id</span>: <span class="num-lit">4</span>, <span class="prop">nome</span>: <span class="str">'Headset'</span>,           <span class="prop">preco</span>: <span class="num-lit">250</span>, <span class="prop">qtd</span>: <span class="num-lit">1</span> },
+]</pre>
+  </div>
+
+  <div class="card">
+    <h2><div class="num">3</div> Template — complete as funções</h2>
+    <pre>
+<span class="comment">// Soma total: use .reduce()</span>
+<span class="keyword">const</span> <span class="fn">calcularTotal</span> = (itens) => {
+  <span class="keyword">return</span> itens.<span class="fn">reduce</span>((acc, item) => acc + <span class="comment">/* ? */</span>, <span class="num-lit">0</span>)
+}
+
+<span class="comment">// Desconto: chame calcularTotal e aplique o %</span>
+<span class="keyword">const</span> <span class="fn">aplicarDesconto</span> = (itens, pct) => {
+  <span class="keyword">const</span> total = <span class="fn">calcularTotal</span>(itens)
+  <span class="keyword">return</span> total - <span class="comment">/* total * pct / 100 */</span>
+}
+
+<span class="comment">// Remover: use .filter() — NÃO use splice!</span>
+<span class="keyword">const</span> <span class="fn">removerItem</span> = (itens, id) =>
+  itens.<span class="fn">filter</span>(item => <span class="comment">/* item.id !== id */</span>)
+
+<span class="comment">// Filtrar caros: use .filter()</span>
+<span class="keyword">const</span> <span class="fn">itensCaros</span> = (itens, limite) =>
+  itens.<span class="fn">filter</span>(item => <span class="comment">/* item.preco > limite */</span>)</pre>
+  </div>
+
+  <div class="card">
+    <h2><div class="num">4</div> Playground interativo</h2>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">Clique nos produtos para adicionar/remover do carrinho e veja o resultado das suas funções:</p>
+
+    <div class="demo-area" id="produtos"></div>
+
+    <div class="carrinho" id="carrinho">
+      <p class="empty">Carrinho vazio — adicione produtos acima</p>
+    </div>
+
+    <details style="margin-top:1.25rem">
+      <summary>Ver solução completa</summary>
+      <pre style="margin-top:.75rem">
+<span class="keyword">const</span> <span class="fn">calcularTotal</span> = (itens) =>
+  itens.<span class="fn">reduce</span>((acc, item) => acc + item.preco * item.qtd, <span class="num-lit">0</span>)
+
+<span class="keyword">const</span> <span class="fn">aplicarDesconto</span> = (itens, pct) =>
+  <span class="fn">calcularTotal</span>(itens) * (<span class="num-lit">1</span> - pct / <span class="num-lit">100</span>)
+
+<span class="keyword">const</span> <span class="fn">removerItem</span> = (itens, id) =>
+  itens.<span class="fn">filter</span>(item => item.id !== id)
+
+<span class="keyword">const</span> <span class="fn">itensCaros</span> = (itens, limite) =>
+  itens.<span class="fn">filter</span>(item => item.preco > limite)</pre>
+    </details>
+  </div>
+
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

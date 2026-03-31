@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 3 – Jogo da Velha</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="badge">
+        <div class="dot"></div>
+        Sprint 8 · Semana 2/3 · Nível Difícil
+      </div>
+      <h1>Exercício 3 – <span>Jogo da Velha</span></h1>
+      <p class="subtitle">
+        Combine tudo: arrays, objetos, arrow functions, manipulação do DOM e lógica de jogo para criar um Jogo da Velha
+        funcional.
+      </p>
+
+      <div class="card">
+        <h2>
+          <div class="num">1</div>
+          O que você vai construir
+        </h2>
+        <ul class="steps">
+          <li>Representar o tabuleiro como um array de 9 posições</li>
+          <li>Alternar entre jogadores X e O a cada clique</li>
+          <li>Verificar se alguém venceu após cada jogada</li>
+          <li>Detectar empate quando o tabuleiro encher</li>
+          <li>Atualizar o DOM dinamicamente (células, mensagem, placar)</li>
+          <li>Permitir reiniciar o jogo sem recarregar a página</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>
+          <div class="num">2</div>
+          Conceitos praticados
+        </h2>
+        <ul>
+          <li>
+            Array de estado (<code style="color: var(--prop); font-family: var(--mono)">tabuleiro</code>) e mutação
+            controlada
+          </li>
+          <li>Arrow functions em event listeners</li>
+          <li>
+            <code style="color: var(--fn); font-family: var(--mono)">querySelectorAll</code>,
+            <code style="color: var(--fn); font-family: var(--mono)">forEach</code>,
+            <code style="color: var(--fn); font-family: var(--mono)">classList</code>
+          </li>
+          <li>
+            <code style="color: var(--fn); font-family: var(--mono)">.some()</code> para checar combinações vencedoras
+          </li>
+          <li><code style="color: var(--fn); font-family: var(--mono)">.every()</code> para detectar empate</li>
+          <li>Separação entre lógica (JS puro) e apresentação (DOM)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>
+          <div class="num">3</div>
+          Estrutura base — complete as funções
+        </h2>
+        <pre>
+<span class="comment">// Estado do jogo</span>
+<span class="keyword">let</span> tabuleiro = Array(<span class="num-lit">9</span>).<span class="fn">fill</span>(<span class="str">''</span>)
+<span class="keyword">let</span> jogadorAtual = <span class="str">'X'</span>
+<span class="keyword">let</span> jogoAtivo = <span class="keyword">true</span>
+<span class="keyword">const</span> placar = { X: <span class="num-lit">0</span>, O: <span class="num-lit">0</span> }
+
+<span class="comment">// Todas as combinações vencedoras</span>
+<span class="keyword">const</span> COMBINACOES = [
+  [<span class="num-lit">0</span>,<span class="num-lit">1</span>,<span class="num-lit">2</span>], [<span class="num-lit">3</span>,<span class="num-lit">4</span>,<span class="num-lit">5</span>], [<span class="num-lit">6</span>,<span class="num-lit">7</span>,<span class="num-lit">8</span>], <span class="comment">// linhas</span>
+  [<span class="num-lit">0</span>,<span class="num-lit">3</span>,<span class="num-lit">6</span>], [<span class="num-lit">1</span>,<span class="num-lit">4</span>,<span class="num-lit">7</span>], [<span class="num-lit">2</span>,<span class="num-lit">5</span>,<span class="num-lit">8</span>], <span class="comment">// colunas</span>
+  [<span class="num-lit">0</span>,<span class="num-lit">4</span>,<span class="num-lit">8</span>], [<span class="num-lit">2</span>,<span class="num-lit">4</span>,<span class="num-lit">6</span>]            <span class="comment">// diagonais</span>
+]
+
+<span class="comment">// Verifica se o jogador atual venceu</span>
+<span class="keyword">const</span> <span class="fn">verificarVitoria</span> = (jogador) =>
+  COMBINACOES.<span class="fn">some</span>(combo =>
+    combo.<span class="fn">every</span>(i => tabuleiro[i] === jogador)
+  )
+
+<span class="comment">// Verifica empate (tabuleiro cheio e sem vitória)</span>
+<span class="keyword">const</span> <span class="fn">verificarEmpate</span> = () =>
+  tabuleiro.<span class="fn">every</span>(cel => cel !== <span class="str">''</span>)
+
+<span class="comment">// Ao clicar em uma célula</span>
+<span class="keyword">const</span> <span class="fn">jogar</span> = (index) => {
+  <span class="keyword">if</span> (!jogoAtivo || tabuleiro[index] !== <span class="str">''</span>) <span class="keyword">return</span>
+
+  tabuleiro[index] = jogadorAtual
+  <span class="fn">renderizarCelula</span>(index) <span class="comment">// atualiza o DOM</span>
+
+  <span class="keyword">if</span> (<span class="fn">verificarVitoria</span>(jogadorAtual)) {
+    placar[jogadorAtual]++
+    <span class="fn">mostrarMensagem</span>(`Jogador ${jogadorAtual} venceu! 🎉`)
+    <span class="fn">destacarVitoria</span>(jogadorAtual)
+    jogoAtivo = <span class="keyword">false</span>
+  } <span class="keyword">else if</span> (<span class="fn">verificarEmpate</span>()) {
+    <span class="fn">mostrarMensagem</span>(<span class="str">'Empate!'</span>)
+    jogoAtivo = <span class="keyword">false</span>
+  } <span class="keyword">else</span> {
+    jogadorAtual = jogadorAtual === <span class="str">'X'</span> ? <span class="str">'O'</span> : <span class="str">'X'</span>
+    <span class="fn">atualizarStatus</span>()
+  }
+}
+
+<span class="comment">// Reiniciar tudo</span>
+<span class="keyword">const</span> <span class="fn">reiniciar</span> = () => {
+  tabuleiro = Array(<span class="num-lit">9</span>).<span class="fn">fill</span>(<span class="str">''</span>)
+  jogadorAtual = <span class="str">'X'</span>
+  jogoAtivo = <span class="keyword">true</span>
+  <span class="fn">renderizarTabuleiro</span>()
+  <span class="fn">atualizarStatus</span>()
+}</pre>
+      </div>
+
+      <div class="card">
+        <h2>
+          <div class="num">4</div>
+          Jogue aqui
+        </h2>
+        <div class="game-wrapper">
+          <div class="status-bar">
+            <div class="player ativo" id="px">
+              <span class="sym x">X</span>
+              <span id="pts-x">0 pts</span>
+            </div>
+            <span style="color: var(--muted); font-size: 0.8rem">VS</span>
+            <div class="player" id="po">
+              <span class="sym o">O</span>
+              <span id="pts-o">0 pts</span>
+            </div>
+          </div>
+
+          <div class="msg" id="msg">Vez do jogador X</div>
+
+          <div class="board" id="board">
+            <div class="cell" data-i="0"></div>
+            <div class="cell" data-i="1"></div>
+            <div class="cell" data-i="2"></div>
+            <div class="cell" data-i="3"></div>
+            <div class="cell" data-i="4"></div>
+            <div class="cell" data-i="5"></div>
+            <div class="cell" data-i="6"></div>
+            <div class="cell" data-i="7"></div>
+            <div class="cell" data-i="8"></div>
+          </div>
+
+          <button class="btn-reset" onclick="reiniciar()">Reiniciar jogo</button>
+        </div>
+
+        <details style="margin-top: 0.5rem">
+          <summary>Ver funções de DOM (renderização)</summary>
+          <pre style="margin-top: 0.75rem">
+<span class="comment">// Atualiza uma célula no DOM</span>
+<span class="keyword">const</span> <span class="fn">renderizarCelula</span> = (i) => {
+  <span class="keyword">const</span> cel = <span class="fn">document.querySelector</span>(`[data-i="${i}"]`)
+  cel.textContent = tabuleiro[i]
+  cel.classList.<span class="fn">add</span>(<span class="str">'taken'</span>, tabuleiro[i].<span class="fn">toLowerCase</span>())
+}
+
+<span class="comment">// Renderiza o tabuleiro inteiro do zero</span>
+<span class="keyword">const</span> <span class="fn">renderizarTabuleiro</span> = () => {
+  <span class="fn">document.querySelectorAll</span>(<span class="str">'.cell'</span>).<span class="fn">forEach</span>((cel, i) => {
+    cel.textContent = <span class="str">''</span>
+    cel.className = <span class="str">'cell'</span>
+  })
+}
+
+<span class="comment">// Destaca células vencedoras</span>
+<span class="keyword">const</span> <span class="fn">destacarVitoria</span> = (jogador) => {
+  COMBINACOES.<span class="fn">find</span>(combo =>
+    combo.<span class="fn">every</span>(i => tabuleiro[i] === jogador)
+  )?.<span class="fn">forEach</span>(i => {
+    <span class="fn">document.querySelector</span>(`[data-i="${i}"]`).classList.<span class="fn">add</span>(<span class="str">'win'</span>)
+  })
+}
+
+<span class="keyword">const</span> <span class="fn">mostrarMensagem</span> = (txt) => {
+  <span class="fn">document.getElementById</span>(<span class="str">'msg'</span>).textContent = txt
+}
+
+<span class="keyword">const</span> <span class="fn">atualizarStatus</span> = () => {
+  <span class="fn">document.getElementById</span>(<span class="str">'msg'</span>).textContent = `Vez do jogador ${jogadorAtual}`
+  <span class="fn">document.getElementById</span>(<span class="str">'px'</span>).classList.<span class="fn">toggle</span>(<span class="str">'ativo'</span>, jogadorAtual === <span class="str">'X'</span>)
+  <span class="fn">document.getElementById</span>(<span class="str">'po'</span>).classList.<span class="fn">toggle</span>(<span class="str">'ativo'</span>, jogadorAtual === <span class="str">'O'</span>)
+  <span class="fn">document.getElementById</span>(<span class="str">'pts-x'</span>).textContent = `${placar.X} pts`
+  <span class="fn">document.getElementById</span>(<span class="str">'pts-o'</span>).textContent = `${placar.O} pts`
+}</pre>
+        </details>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

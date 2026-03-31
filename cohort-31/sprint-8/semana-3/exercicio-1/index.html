@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercício 1 – Validador de Senha</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <div class="badge">
+        <div class="dot"></div>
+        Sprint 8 · Semana 1 · Nível Fácil
+      </div>
+      <h1>Exercício 1 – <span>Validador de Senha</span></h1>
+      <p class="subtitle">
+        Pratique métodos de string, números e lógica básica criando uma função que avalia a força de uma senha.
+      </p>
+
+      <div class="card">
+        <h2>
+          <div class="num">1</div>
+          Enunciado
+        </h2>
+        <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.75rem">
+          Crie uma função chamada <code style="color: var(--accent)">validarSenha(senha)</code> que receba uma string e
+          retorne um objeto com as seguintes informações:
+        </p>
+        <ul>
+          <li>Se a senha tem no mínimo 8 caracteres</li>
+          <li>Se contém ao menos um número (dica: use <code style="color: #82aaff">parseInt</code> ou regex)</li>
+          <li>Se contém ao menos uma letra maiúscula</li>
+          <li>Se contém ao menos um caractere especial (!@#$%)</li>
+          <li>
+            A força geral: <strong style="color: var(--green)">forte</strong>,
+            <strong style="color: var(--yellow)">média</strong> ou <strong style="color: var(--red)">fraca</strong>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>
+          <div class="num">2</div>
+          Dicas de métodos JS
+        </h2>
+        <ul>
+          <li><code style="color: #82aaff">.length</code> — tamanho da string</li>
+          <li>
+            <code style="color: #82aaff">.toUpperCase()</code> e <code style="color: #82aaff">.toLowerCase()</code> —
+            alternar case
+          </li>
+          <li><code style="color: #82aaff">/regex/.test(string)</code> — testar padrão</li>
+          <li>
+            <code style="color: #82aaff">isNaN()</code> / <code style="color: #82aaff">Number()</code> — verificar se é
+            número
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>
+          <div class="num">3</div>
+          Template de código
+        </h2>
+        <pre>
+<span class="keyword">function</span> <span class="fn">validarSenha</span>(senha) {
+  <span class="comment">// 1. Verifique o tamanho mínimo</span>
+  <span class="keyword">const</span> temTamanho = senha.length >= <span class="num-lit">8</span>
+
+  <span class="comment">// 2. Verifique se tem número</span>
+  <span class="keyword">const</span> temNumero = <span class="comment">/* seu código aqui */</span>
+
+  <span class="comment">// 3. Verifique letra maiúscula</span>
+  <span class="keyword">const</span> temMaiuscula = <span class="comment">/* seu código aqui */</span>
+
+  <span class="comment">// 4. Verifique caractere especial</span>
+  <span class="keyword">const</span> temEspecial = <span class="comment">/* seu código aqui */</span>
+
+  <span class="comment">// 5. Calcule a força (quantos critérios foram atendidos?)</span>
+  <span class="keyword">const</span> pontos = [temTamanho, temNumero, temMaiuscula, temEspecial]
+                  .<span class="fn">filter</span>(Boolean).length
+
+  <span class="keyword">const</span> forca = pontos === <span class="num-lit">4</span> ? <span class="str">'forte'</span>
+              : pontos >= <span class="num-lit">2</span> ? <span class="str">'média'</span>
+              : <span class="str">'fraca'</span>
+
+  <span class="keyword">return</span> { temTamanho, temNumero, temMaiuscula, temEspecial, forca }
+}</pre>
+      </div>
+
+      <div class="card">
+        <h2>
+          <div class="num">4</div>
+          Teste aqui
+        </h2>
+        <input type="text" id="senhaInput" placeholder="Digite uma senha para testar..." />
+        <button onclick="testar()">Validar senha</button>
+        <div class="result" id="resultado"></div>
+
+        <details style="margin-top: 1.25rem">
+          <summary>Ver solução completa</summary>
+          <pre style="margin-top: 0.75rem">
+<span class="keyword">function</span> <span class="fn">validarSenha</span>(senha) {
+  <span class="keyword">const</span> temTamanho  = senha.length >= <span class="num-lit">8</span>
+  <span class="keyword">const</span> temNumero   = <span class="fn">/[0-9]/</span>.<span class="fn">test</span>(senha)
+  <span class="keyword">const</span> temMaiuscula= <span class="fn">/[A-Z]/</span>.<span class="fn">test</span>(senha)
+  <span class="keyword">const</span> temEspecial = <span class="fn">/[!@#$%^&*]/</span>.<span class="fn">test</span>(senha)
+
+  <span class="keyword">const</span> pontos = [temTamanho, temNumero, temMaiuscula, temEspecial]
+                  .<span class="fn">filter</span>(Boolean).length
+
+  <span class="keyword">const</span> forca = pontos === <span class="num-lit">4</span> ? <span class="str">'forte'</span>
+              : pontos >= <span class="num-lit">2</span> ? <span class="str">'média'</span>
+              : <span class="str">'fraca'</span>
+
+  <span class="keyword">return</span> { temTamanho, temNumero, temMaiuscula, temEspecial, forca }
+}</pre>
+        </details>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
