@@ -1,0 +1,30 @@
+/* Estado padrão */
+input {
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Campo com erro */
+input.input-invalido {
+  border-color: #e53e3e; /* vermelho */
+  background-color: #fff5f5;
+}
+
+/* Campo válido */
+input.input-valido {
+  border-color: #38a169; /* verde */
+  background-color: #f0fff4;
+}
+
+/* Mensagem de erro */
+.erro {
+  display: block;
+  color: #e53e3e;
+  font-size: 13px;
+  margin-top: 4px;
+  min-height: 18px; /* evita "pulo" no layout quando aparece */
+}
