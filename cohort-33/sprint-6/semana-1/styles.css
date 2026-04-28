@@ -1,0 +1,39 @@
+body {
+    height: 100vh;
+    display: grid;
+    gap: 16px;
+    grid-template-areas: 
+    "logo menu menu"
+    "sidebar content content"
+    "footer footer footer"
+    ;
+    grid-template-rows: 100px 1fr 100px;
+    grid-template-columns: 100px 1fr 1fr;
+    
+}
+
+.logo {
+    grid-area: logo;
+    background-color: lightblue;
+}
+
+.menu {
+    grid-area: menu;
+    background: linear-gradient(140deg, #fcfefe, #54aaaa);
+}
+
+aside {
+    grid-area: sidebar;
+    background-color: lightcoral;
+}
+
+main {
+    grid-area: content;
+    background-color: lightyellow;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    grid-area: footer;
+    background-color: lightgray;
+}

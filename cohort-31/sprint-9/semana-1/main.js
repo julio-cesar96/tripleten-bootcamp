@@ -28,6 +28,7 @@ function validarNome() {
 }
 
 function validarEmail() {
+    // O que
     const inputEmail = document.getElementById("email");
     const erro = document.getElementById("erro-email");
     const valor = inputEmail.value.trim();
@@ -81,8 +82,10 @@ function validarSenha() {
     return true; // campo válido
 }
 
+// O que - qual elemento da DOM você quer capturar? (formulário, input, botão...)
 const form = document.getElementById("meuForm");
 
+// Quando - qual evento você quer escutar? (submit, click, change...)
 form.addEventListener("submit", function(event) {
     event.preventDefault(); // Evita o envio do formulário
 
@@ -104,3 +107,18 @@ form.addEventListener("submit", function(event) {
         document.getElementById("senha").classList.remove("input-valido");
     }
 });
+
+
+
+
+
+
+// O que - qual elemento da DOM você quer capturar? (formulário, input, botão...)
+
+
+
+
+// O que vai fazer
+
+
+
