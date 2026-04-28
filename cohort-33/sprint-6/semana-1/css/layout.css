@@ -1,0 +1,411 @@
+/* ============================================================
+   LAYOUT.CSS — Estrutura macro: seções, Flexbox e CSS Grid
+   ============================================================
+
+   AULA: Este arquivo cuida da ESTRUTURA — onde as coisas ficam.
+   Regra prática:
+     Flexbox → 1 direção (linha OU coluna)
+     Grid    → 2 direções (linhas E colunas)
+   ============================================================ */
+
+
+/* ----------------------------------------------------------
+   HEADER
+   AULA: Flexbox é perfeito aqui — tudo em uma linha só.
+   justify-content: space-between empurra logo para a
+   esquerda e CTA para a direita automaticamente.
+   ---------------------------------------------------------- */
+.header {
+  position: sticky;   /* gruda no topo ao rolar */
+  top: 0;
+  z-index: 100;
+
+  /* Glassmorfismo: fundo semitransparente + blur */
+  background-color: rgba(19, 19, 21, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* 3 grupos: logo | links | cta */
+  height: 4rem;
+  gap: var(--space-8);
+}
+
+.nav__links {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.nav__links a {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.nav__links a:hover {
+  color: var(--color-text);
+}
+
+
+/* ----------------------------------------------------------
+   HERO
+   ---------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-block: var(--space-24);
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.hero__title {
+  font-size: var(--text-hero); /* clamp — responsivo sem media query */
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  max-width: 14ch;
+}
+
+.hero__subtitle {
+  font-size: var(--text-lg);
+  max-width: 48ch;
+  text-align: center;
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Glow decorativo atrás do hero */
+.hero__glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(96,1,209,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* ----------------------------------------------------------
+   SEÇÕES — padrão
+   ---------------------------------------------------------- */
+.section {
+  padding-block: var(--space-20);
+}
+
+.section--alt {
+  background-color: var(--color-surface);
+}
+
+.section__label {
+  display: block;
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.section__title {
+  font-size: var(--text-3xl);
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.section__title--left {
+  font-size: var(--text-2xl);
+  text-align: left;
+  margin-bottom: var(--space-4);
+}
+
+.section__subtitle {
+  font-size: var(--text-lg);
+  text-align: center;
+  margin-bottom: var(--space-12);
+  margin-inline: auto;
+}
+
+
+/* ----------------------------------------------------------
+   FEATURES GRID
+   AULA: repeat(auto-fit, minmax(280px, 1fr)) é o truque
+   mais poderoso do Grid. Sem media query, cria:
+     Mobile  → 1 coluna
+     Tablet  → 2 colunas
+     Desktop → 3 colunas
+   ---------------------------------------------------------- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+
+/* ----------------------------------------------------------
+   STEPS GRID (Workflow)
+   ---------------------------------------------------------- */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-8);
+}
+
+.step {
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.step__number {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-accent-light);
+  background: rgba(96, 1, 209, 0.1);
+  border: 1px solid rgba(96, 1, 209, 0.3);
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.step__title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+
+.step__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-inline: auto;
+}
+
+
+/* ----------------------------------------------------------
+   TESTIMONIALS
+   AULA: Aqui usamos Grid para layout assimétrico:
+   1 coluna de texto + 1.5 colunas de cards.
+   ---------------------------------------------------------- */
+.testimonials-layout {
+  display: grid;
+  grid-template-columns: 1fr;   /* mobile: 1 coluna */
+  gap: var(--space-12);
+}
+
+.testimonials__headline p {
+  max-width: 38ch;
+  margin-bottom: var(--space-6);
+}
+
+.testimonials__cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+
+/* ----------------------------------------------------------
+   PRICING GRID
+   ---------------------------------------------------------- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile: 1 coluna */
+  gap: var(--space-6);
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+
+/* ----------------------------------------------------------
+   CTA
+   ---------------------------------------------------------- */
+.cta-section {
+  text-align: center;
+}
+
+.cta__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.cta__title {
+  font-size: var(--text-3xl);
+}
+
+.cta__subtitle {
+  max-width: 50ch;
+  text-align: center;
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.cta__note {
+  margin-top: var(--space-2);
+}
+
+
+/* ----------------------------------------------------------
+   FOOTER
+   ---------------------------------------------------------- */
+.footer {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-16) var(--space-8);
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* mobile: 1 coluna */
+  gap: var(--space-8);
+}
+
+.footer__brand p {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  max-width: 28ch;
+}
+
+.footer__col h4 {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.footer__col ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer__col a {
+  font-size: var(--text-sm);
+  color: var(--color-text-dim);
+  transition: color var(--transition-fast);
+}
+
+.footer__col a:hover {
+  color: var(--color-text-muted);
+}
+
+.footer__bottom {
+  padding-block: var(--space-6) 0;
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-8);
+}
+
+.footer__bottom p {
+  font-size: var(--text-xs);
+  color: var(--color-text-dim);
+  text-align: center;
+  max-width: none;
+}
+
+
+/* ============================================================
+   RESPONSIVIDADE — Mobile First
+   ============================================================
+
+   AULA: Mobile-first = CSS base é o mobile.
+   Media queries ADICIONAM complexidade pra telas maiores.
+   Use sempre min-width, nunca max-width.
+
+   Breakpoints:
+     Mobile:  sem query (padrão)
+     Tablet:  min-width: 768px
+     Desktop: min-width: 1024px
+   ============================================================ */
+
+
+/* ----------------------------------------------------------
+   TABLET (768px+)
+   ---------------------------------------------------------- */
+@media (min-width: 768px) {
+
+  .section {
+    padding-block: var(--space-24);
+  }
+
+  .hero {
+    padding-block: var(--space-24);
+  }
+
+  /* Mostra links e CTA da nav */
+  .nav__links {
+    display: flex;
+  }
+
+  /* Pricing: 2 colunas */
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+  }
+
+  /* Footer: 3 colunas */
+  .footer__grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+
+/* ----------------------------------------------------------
+   DESKTOP (1024px+)
+   ---------------------------------------------------------- */
+@media (min-width: 1024px) {
+
+  /* Features: 3 colunas fixas */
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Pricing: 3 colunas — featured fica no centro */
+  .pricing-grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start; /* para o featured poder "subir" */
+  }
+
+  /* Testimonials: layout assimétrico lado a lado */
+  .testimonials-layout {
+    grid-template-columns: 1fr 1.5fr;
+    align-items: start;
+    gap: var(--space-16);
+  }
+
+  /* Footer: 5 colunas */
+  .footer__grid {
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  }
+
+  /* Pricing featured levemente elevado */
+  .pricing-card--featured {
+    transform: translateY(-12px);
+  }
+
+  .pricing-card--featured:hover {
+    transform: translateY(-16px);
+  }
+}
